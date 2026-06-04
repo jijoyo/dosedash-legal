@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eliminar cuenta - DoseDash</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.6; color: #1a1a1a; background: #f7f7f8; padding: 20px; max-width: 700px; margin: 0 auto; }
+    h1 { font-size: 1.8em; margin-bottom: 0.5em; color: #0f172a; }
+    h2 { font-size: 1.2em; margin-top: 1.5em; margin-bottom: 0.5em; color: #1e293b; }
+    p, li { margin-bottom: 0.8em; color: #334155; }
+    ul, ol { padding-left: 1.5em; margin-bottom: 1em; }
+    .form { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin: 1.5em 0; }
+    .form-group { margin-bottom: 1em; }
+    label { display: block; font-size: 0.9em; color: #475569; margin-bottom: 0.3em; font-weight: 500; }
+    input, textarea { width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1em; font-family: inherit; }
+    input:focus, textarea:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
+    button { background: #dc2626; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 1em; font-weight: 600; cursor: pointer; width: 100%; }
+    button:hover:not(:disabled) { background: #b91c1c; }
+    button:disabled { background: #94a3b8; cursor: not-allowed; }
+    .success { background: #d1fae5; color: #065f46; padding: 12px; border-radius: 8px; margin: 1em 0; display: none; }
+    .error { background: #fee2e2; color: #991b1b; padding: 12px; border-radius: 8px; margin: 1em 0; display: none; }
+    .note { background: #fef3c7; color: #92400e; padding: 12px; border-radius: 8px; margin: 1em 0; font-size: 0.9em; }
+    a { color: #2563eb; }
+  </style>
+</head>
+<body>
+  <h1>Eliminar cuenta de DoseDash</h1>
+  <p>Si ya no quieres usar DoseDash, puedes solicitar la eliminaciÃ³n de tu cuenta y todos los datos asociados desde esta pÃ¡gina, sin necesidad de abrir la app.</p>
+
+  <div class="note">
+    <strong>Importante:</strong> Si tienes una suscripciÃ³n Premium activa, primero <a href="https://play.google.com/store/account/subscriptions" target="_blank" rel="noopener">cancela la suscripciÃ³n en Google Play</a>. De lo contrario, Google seguirÃ¡ cobrando hasta que termine el periodo pagado.
+  </div>
+
+  <div class="form">
+    <h2>Solicitar eliminaciÃ³n</h2>
+    <form id="deleteForm">
+      <div class="form-group">
+        <label for="email">Correo electrÃ³nico registrado en DoseDash *</label>
+        <input type="email" id="email" name="email" required placeholder="tu@correo.com">
+      </div>
+      <div class="form-group">
+        <label for="reason">Motivo (opcional, nos ayuda a mejorar)</label>
+        <textarea id="reason" name="reason" rows="3" placeholder="Â¿Por quÃ© eliminas tu cuenta?"></textarea>
+      </div>
+      <div class="form-group">
+        <label style="display: flex; align-items: center; gap: 8px; font-weight: normal;">
+          <input type="checkbox" id="confirm" required style="width: auto;">
+          Confirmo que soy el titular de esta cuenta y quiero eliminarla permanentemente.
+        </label>
+      </div>
+      <button type="submit" id="submitBtn">Eliminar mi cuenta y todos mis datos</button>
+    </form>
+    <div class="success" id="success">
+      <strong>âœ“ Solicitud recibida.</strong> Te enviaremos un correo de confirmaciÃ³n a la direcciÃ³n indicada. Una vez confirmado, tu cuenta y todos los datos se eliminarÃ¡n en un plazo mÃ¡ximo de 30 dÃ­as naturales.
+    </div>
+    <div class="error" id="error">
+      <strong>Error:</strong> <span id="errorText"></span>
+    </div>
+  </div>
+
+  <h2>QuÃ© se elimina</h2>
+  <ul>
+    <li>Tu cuenta de usuario y credenciales de acceso.</li>
+    <li>Tu perfil (nombre, alias, foto).</li>
+    <li>Todas tus tareas, recordatorios, ejercicios y datos de alimentos.</li>
+    <li>Tus conversaciones y mensajes del mÃ³dulo Chatito.</li>
+    <li>Tokens de notificaciones push.</li>
+    <li>Datos de sesiÃ³n de Google (OAuth).</li>
+  </ul>
+  <h2>QuÃ© NO se elimina</h2>
+  <ul>
+    <li>Comprobantes fiscales de pagos pasados (obligaciÃ³n legal, 5 aÃ±os segÃºn Art. 86 CFF).</li>
+    <li>Datos ya anonimizados en analÃ­ticas agregadas.</li>
+  </ul>
+
+  <h2>Forma mÃ¡s rÃ¡pida</h2>
+  <p>Si tienes la app instalada, ve a <strong>ConfiguraciÃ³n â†’ Cerrar sesiÃ³n</strong> y usa el botÃ³n <strong>"Eliminar cuenta"</strong> al pie. La eliminaciÃ³n es inmediata.</p>
+
+  <h2>Contacto</h2>
+  <p>Si tienes dudas: <a href="mailto:jijoyo202@gmail.com">jijoyo202@gmail.com</a></p>
+  <p>MÃ¡s informaciÃ³n en nuestro <a href="./privacidad.html">Aviso de Privacidad</a>.</p>
+
+  <script>
+    const SUPABASE_URL = 'https://favofvpghzgscbwvkbqb.supabase.co';
+    const SUPABASE_ANON = 'sb_publishable_Mdo_VOnoEHTI7wL9gt018Q_ON_m6HaS';
+
+    document.getElementById('deleteForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      const email = document.getElementById('email').value.trim();
+      const reason = document.getElementById('reason').value.trim();
+      const successEl = document.getElementById('success');
+      const errorEl = document.getElementById('error');
+      const errorText = document.getElementById('errorText');
+
+      successEl.style.display = 'none';
+      errorEl.style.display = 'none';
+      btn.disabled = true;
+      btn.textContent = 'Procesando...';
+
+      try {
+        const r = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON },
+          body: JSON.stringify({ email, password: prompt('Por seguridad, confirma tu contraseÃ±a:') || '' })
+        });
+        if (!r.ok) {
+          const err = await r.json();
+          throw new Error(err.message || 'Credenciales invÃ¡lidas');
+        }
+        const session = await r.json();
+
+        const del = await fetch(`${SUPABASE_URL}/functions/v1/delete-account`, {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${session.access_token}`, 'apikey': SUPABASE_ANON }
+        });
+        if (!del.ok) {
+          const err = await del.json();
+          throw new Error(err.error || 'Error al eliminar');
+        }
+
+        successEl.style.display = 'block';
+        document.getElementById('deleteForm').style.display = 'none';
+
+        if (reason) {
+          fetch(`${SUPABASE_URL}/rest/v1/feedback`, {
+            method: 'POST',
+            headers: { 'apikey': SUPABASE_ANON, 'Authorization': `Bearer ${session.access_token}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: `[ELIMINACION] ${reason}` })
+          }).catch(() => {});
+        }
+      } catch (e) {
+        errorText.textContent = e.message;
+        errorEl.style.display = 'block';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Eliminar mi cuenta y todos mis datos';
+      }
+    });
+  </script>
+</body>
+</html>
