@@ -27,22 +27,22 @@
 </head>
 <body>
   <h1>Eliminar cuenta de DoseDash</h1>
-  <p>Si ya no quieres usar DoseDash, puedes solicitar la eliminaciÃ³n de tu cuenta y todos los datos asociados desde esta pÃ¡gina, sin necesidad de abrir la app.</p>
+  <p>Si ya no quieres usar DoseDash, puedes solicitar la eliminación de tu cuenta y todos los datos asociados desde esta página, sin necesidad de abrir la app.</p>
 
   <div class="note">
-    <strong>Importante:</strong> Si tienes una suscripciÃ³n Premium activa, primero <a href="https://play.google.com/store/account/subscriptions" target="_blank" rel="noopener">cancela la suscripciÃ³n en Google Play</a>. De lo contrario, Google seguirÃ¡ cobrando hasta que termine el periodo pagado.
+    <strong>Importante:</strong> Si tienes una suscripción Premium activa, primero <a href="https://play.google.com/store/account/subscriptions" target="_blank" rel="noopener">cancela la suscripción en Google Play</a>. De lo contrario, Google seguirá cobrando hasta que termine el periodo pagado.
   </div>
 
   <div class="form">
-    <h2>Solicitar eliminaciÃ³n</h2>
+    <h2>Solicitar eliminación</h2>
     <form id="deleteForm">
       <div class="form-group">
-        <label for="email">Correo electrÃ³nico registrado en DoseDash *</label>
+        <label for="email">Correo electrónico registrado en DoseDash *</label>
         <input type="email" id="email" name="email" required placeholder="tu@correo.com">
       </div>
       <div class="form-group">
         <label for="reason">Motivo (opcional, nos ayuda a mejorar)</label>
-        <textarea id="reason" name="reason" rows="3" placeholder="Â¿Por quÃ© eliminas tu cuenta?"></textarea>
+        <textarea id="reason" name="reason" rows="3" placeholder="¿Por qué eliminas tu cuenta?"></textarea>
       </div>
       <div class="form-group">
         <label style="display: flex; align-items: center; gap: 8px; font-weight: normal;">
@@ -53,34 +53,34 @@
       <button type="submit" id="submitBtn">Eliminar mi cuenta y todos mis datos</button>
     </form>
     <div class="success" id="success">
-      <strong>âœ“ Solicitud recibida.</strong> Te enviaremos un correo de confirmaciÃ³n a la direcciÃ³n indicada. Una vez confirmado, tu cuenta y todos los datos se eliminarÃ¡n en un plazo mÃ¡ximo de 30 dÃ­as naturales.
+      <strong>✓ Solicitud recibida.</strong> Te enviaremos un correo de confirmación a la dirección indicada. Una vez confirmado, tu cuenta y todos los datos se eliminarán en un plazo máximo de 30 días naturales.
     </div>
     <div class="error" id="error">
       <strong>Error:</strong> <span id="errorText"></span>
     </div>
   </div>
 
-  <h2>QuÃ© se elimina</h2>
+  <h2>Qué se elimina</h2>
   <ul>
     <li>Tu cuenta de usuario y credenciales de acceso.</li>
     <li>Tu perfil (nombre, alias, foto).</li>
     <li>Todas tus tareas, recordatorios, ejercicios y datos de alimentos.</li>
-    <li>Tus conversaciones y mensajes del mÃ³dulo Chatito.</li>
+    <li>Tus conversaciones y mensajes del módulo Chatito.</li>
     <li>Tokens de notificaciones push.</li>
-    <li>Datos de sesiÃ³n de Google (OAuth).</li>
+    <li>Datos de sesión de Google (OAuth).</li>
   </ul>
-  <h2>QuÃ© NO se elimina</h2>
+  <h2>Qué NO se elimina</h2>
   <ul>
-    <li>Comprobantes fiscales de pagos pasados (obligaciÃ³n legal, 5 aÃ±os segÃºn Art. 86 CFF).</li>
-    <li>Datos ya anonimizados en analÃ­ticas agregadas.</li>
+    <li>Comprobantes fiscales de pagos pasados (obligación legal, 5 años según Art. 86 CFF).</li>
+    <li>Datos ya anonimizados en analíticas agregadas.</li>
   </ul>
 
-  <h2>Forma mÃ¡s rÃ¡pida</h2>
-  <p>Si tienes la app instalada, ve a <strong>ConfiguraciÃ³n â†’ Cerrar sesiÃ³n</strong> y usa el botÃ³n <strong>"Eliminar cuenta"</strong> al pie. La eliminaciÃ³n es inmediata.</p>
+  <h2>Forma más rápida</h2>
+  <p>Si tienes la app instalada, ve a <strong>Configuración → Cerrar sesión</strong> y usa el botón <strong>"Eliminar cuenta"</strong> al pie. La eliminación es inmediata.</p>
 
   <h2>Contacto</h2>
   <p>Si tienes dudas: <a href="mailto:jijoyo202@gmail.com">jijoyo202@gmail.com</a></p>
-  <p>MÃ¡s informaciÃ³n en nuestro <a href="https://raw.githack.com/jijoyo/dosedash-legal/main/privacidad.html">Aviso de Privacidad</a>.</p>
+  <p>Más información en nuestro <a href="https://raw.githack.com/jijoyo/dosedash-legal/main/privacidad.html">Aviso de Privacidad</a>.</p>
 
   <script>
     const SUPABASE_URL = 'https://favofvpghzgscbwvkbqb.supabase.co';
@@ -104,11 +104,11 @@
         const r = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON },
-          body: JSON.stringify({ email, password: prompt('Por seguridad, confirma tu contraseÃ±a:') || '' })
+          body: JSON.stringify({ email, password: prompt('Por seguridad, confirma tu contraseña:') || '' })
         });
         if (!r.ok) {
           const err = await r.json();
-          throw new Error(err.message || 'Credenciales invÃ¡lidas');
+          throw new Error(err.message || 'Credenciales inválidas');
         }
         const session = await r.json();
 
